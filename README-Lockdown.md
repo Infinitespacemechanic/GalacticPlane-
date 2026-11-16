@@ -1,3 +1,5 @@
+[![Lean Build](https://github.com/Infinitespacemechanic/GalacticPlane-/actions/workflows/lean.yml/badge.svg)](https://github.com/Infinitespacemechanic/GalacticPlane-/actions/workflows/lean.yml)
+
 # Lockdown — Laakkonen's Paradox, Locked
 
 **Middle is One, Not Zero. Cut = More Wholes, Not Zero.**
@@ -22,7 +24,8 @@ Zero is implied. It is a math convenience, not a true nothing. A true nothing wo
 - nullstick.lean — middle is one
 - GPS.lean — position exists even at 0,0,0
 - Distance.lean — 1/2 is distance, not cut
-- Lockdown.lean — everything together, locked (this file)
+- Lockdown.lean — everything together, locked
+- Collection.lean — collection of the system
 - lakefile.toml / lean-toolchain — reproducible build, pinned to Lean 4 v4.14.0
 - .github/workflows/lean.yml — GitHub checks every proof on push
 
@@ -49,23 +52,25 @@ lake build
 
 Or just look at the green check on GitHub — the workflow runs lake build on every push.
 
-## How To Upload This Pack
+## Build Fix Note
 
-Unzip this into the root of your existing GalacticPlane- repo, next to your other .lean files:
+lakefile.toml lists the core files as explicit [[lean_lib]] targets:
+Lockdown, Onemagnet, nullstick, Collection.
+
+MathlibDemo.lean is NOT listed on purpose — it imports Mathlib, which is not a dependency of this project. It stays in the repo as a demo, but `lake build` will not try to compile it, so the core build stays clean.
+
+## How To Upload This Fix
+
+Unzip this into the root of your existing GalacticPlane- repo, overwriting the old lakefile.toml and README:
 
 GalacticPlane-/
-  Onemagnet.lean
-  nullstick.lean
-  GPS.lean
-  Distance.lean
-  Lockdown.lean
-  lakefile.toml
-  lean-toolchain
-  .github/workflows/lean.yml
+  lakefile.toml                  <- overwrite with fix
+  README-Lockdown.md             <- overwrite with badge version
+  .github/workflows/lean.yml    <- same workflow, keep
 
 Then:
-git add Lockdown.lean lakefile.toml lean-toolchain .github/workflows/lean.yml README-Lockdown.md
-git commit -m "Lockdown: middle is one, not zero"
+git add lakefile.toml README-Lockdown.md .github/workflows/lean.yml
+git commit -m "Fix lakefile: build all core files, exclude MathlibDemo, add CI badge"
 git push
 
 War on Zero is over. Locked.

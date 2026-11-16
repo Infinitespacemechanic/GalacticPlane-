@@ -1,6 +1,25 @@
 name = "lockdown"
 version = "0.1.0"
-defaultTargets = ["Lockdown"]
+defaultTargets = ["Lockdown", "Onemagnet", "nullstick", "Collection"]
 
 [[lean_lib]]
 name = "Lockdown"
+srcDir = "."
+
+[[lean_lib]]
+name = "Onemagnet"
+srcDir = "."
+
+[[lean_lib]]
+name = "nullstick"
+srcDir = "."
+
+[[lean_lib]]
+name = "Collection"
+srcDir = "."
+
+# NOTE: MathlibDemo.lean is NOT listed here on purpose.
+# It imports Mathlib, which is not a dependency of this project.
+# It still lives in the repo as a demo, but `lake build` will not
+# try to compile it. If you want it built, add Mathlib as a [[require]]
+# below and add it to defaultTargets.
